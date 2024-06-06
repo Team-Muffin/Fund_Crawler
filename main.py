@@ -61,6 +61,9 @@ from tqdm import tqdm
 # PEER_STOCK_FRG_RT (해외주식): 59.39
 # PEER_STOCK_RT (주식): 1.23
 
+def to_slash_url(url):
+    return url.replace("&#47;","/")
+
 def to_float(s):
     if s is None or s == '':
         return
@@ -146,8 +149,8 @@ def get_fund_full_info(fund_summary):
         fund_info = fund_info_response.json()["Data"]
         fund_full_info["CO_NM"] = fund_info[0][0]["CO_NM"]
         fund_full_info["FEE_GB"] = fund_info[0][0]["FEE_GB"]
-        fund_full_info["CLA_URL"] = fund_info[0][0]["CLA_URL"]
-        fund_full_info["INV_URL"] = fund_info[0][0]["INV_URL"]
+        fund_full_info["CLA_URL"] = to_slash_url(fund_info[0][0]["CLA_URL"])
+        fund_full_info["INV_URL"] = to_slash_url(fund_info[0][0]["INV_URL"])
         fund_full_info["PEER_CD_L_NM"] = fund_info[0][0]["PEER_CD_L_NM"]
         fund_full_info["PEER_CD_NM"] = fund_info[0][0]["PEER_CD_NM"]
         fund_full_info["DRV_SET_AMT"] = to_int(fund_info[0][0]["DRV_SET_AMT"])
